@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styleLogin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../macaco.svg" type="image/x-icon">
+    <title>Munkee Notes</title>
+</head>
+<body>
+    <%- include ('partials/msg.ejs');%> 
+      <h1 id="subtitle">Insira seus dados</h1>
+      <form action="/users/login" id="form" method="POST">
+          <input class="input" type="email" name="email" placeholder="Insira seu email"><br>
+          <input class="input" type="password" name="password" placeholder="Insira sua senha">
+          <button class="btn">Entrar</button>
+        </form>
+    <img src="../macaco.svg" alt="munkee">
+</body>
+</html>

@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+}
+ 
+body{
+    background: #f0c350;
+}
+
+#title{
+    color: white;
+    font-size: 4rem;
+    font-family: "Comic Neue";
+}
+#header{
+    margin: 1.5rem auto;
+    display: grid;
+    justify-content: center;
+}
+#content{
+    display: grid;
+    justify-content: center;
+} 
+#subtitle{
+    color: white;
+    margin: 1rem;
+    font-size: 1.4rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+#buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+a > .btn{
+    width: 6rem;
+    height: 3rem;
+    margin: 0 1rem;
+    background: rgb(236, 128, 88);
+    color: white;
+    border: none; 
+    border-radius: 0.8rem;
+    font-size: 1rem;
+}
+#image{
+     margin: 2rem auto;
+     width: 11rem;
+     height: 11rem;
+}
+#image > img{
+    width: 100%;
+    height: 100%;
+}
+#credits{
+    margin: 4.5rem 1.3rem;
+    color: white;
+    font-size: 0.8rem;
+    font-family: "Comic Neue"
+}
+#credits a{
+    text-decoration: none;
+    color: orangered;
+}
+
+@media(min-width: 700px){
+    #text{
+        width: 75%;
+        margin: 0 8rem;
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+        justify-content: center;
+    }
+    #general{
+        display: grid;
+        grid-template-rows: 0.8fr 0.1fr;
+        align-items: center;
+        justify-content: center;
+    }
+    #top{
+        padding: 2rem 0;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: 1fr 1fr;
+    }
+   a > .btn{
+         width: 11rem;
+         height: 2.8rem;
+     }
+    #image{
+        margin: 1rem auto;
+        width: 20rem;
+        height: 20rem;
+    }
+    #title{
+        margin: 0 auto;
+        font-size: 4rem;
+    }
+    #subtitle{
+        margin: 0 auto;
+        font-size: 2rem;
+    }
+    #credits{
+        margin: 2rem 5rem;
+    }
+}
+
