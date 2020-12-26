@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +8,15 @@
     <link rel="shortcut icon" href="../macaco.svg" type="image/x-icon">
     <title>Munkee Notes</title>
 </head>
-
 <body>
     <%- include ('partials/msg.ejs');%> 
-    <h1 id="subtitle">Insira seus dados</h1>
-    <form action="/users/login" id="form" method="POST">
-      <input class="input" type="email" name="email" placeholder="Insira seu email"><br>
-      <input class="input" type="password" name="password" placeholder="Insira sua senha">
-      <button class="btn">Entrar</button>
-    </form> 
-    <a href="/users/frgtPassword" id="forgotPassword">Esqueci minha senha</a>
-    <img src="../macaco.svg" alt="munkee"> 
+      <h2 id="subtitle">Um código de autenticação foi enviado para seu email</h2>
+       
+        <form action="/users/validateResetToken/<%=id%>" id="form" method="POST"> 
+        <h3>Digite o código recebido: </h3>
+        <input class="input" type="text" name="token" placeholder="Insira o código"><br>
+        <button class="btn">Verificar</button>
+        </form> 
+        <img src="../macaco.svg" alt="munkee"> 
 </body>
-
 </html>

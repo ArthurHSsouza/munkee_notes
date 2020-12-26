@@ -4,8 +4,11 @@ const flash = require('connect-flash');
 const app = express();
 app.use(express.json());
 
+app.disable('x-powered-by');
+
 //static-files
-app.use(express.static('static'));
+
+app.use(express.static(__dirname+'/public'));
 
 // body parse
 app.use(express.urlencoded({extended: false}));
@@ -31,27 +34,22 @@ app.use((req,res,next)=>{
 });
 
 //db conection
-const sqlite = require('sqlite-sync');
-sqlite.connect('./db/database.db');
+require('./db/connection')
 
-//models
-/*require('./models/users');
-require('./models/annotations');*/
-
-//engine
+//defines engine for views
 app.set('view engine','ejs');
 
 //routes
-const users = require('./routes/users');
-const annotations = require('./routes/annotations');
-const main = require('./routes/main');
+const users = require('./src/routes/users');
+const annotations = require('./src/routes/annotations');
+const main = require('./src/routes/main');
 
 app.use('/users',users);
 app.use('/profileNotes',annotations);
 app.use('/',main);
 
 //PORT
-const PORT = 8080;
+const PORT = 3000;
 app.listen(PORT, err =>{
     err ? console.log(err) : console.log("conectado na porta: "+PORT);
-})
+});

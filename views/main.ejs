@@ -11,15 +11,37 @@
   <body>
       <div id="header">
           <div id="title">
-          <h1> <img src="../monkey.svg" id="monkey" alt="">Munkee Notes</h1>
-          </div>
-      </div>
+          <h1><img src="../monkey.svg" id="monkey" alt="">Munkee Notes</h1>
+          </div> 
+          <button id="exit" ><a href="/users/logout" >Sair</a></button>
+      </div> 
+      <%- include ('partials/msg.ejs');%> 
        <div id="body"> 
-         <div id="menu">
-         </div>
          <div id="noteList">
-             
+            <input type="hidden" id="username" value="<%=username%>">
+            <a onclick="cardGenerator(document.querySelector('#username').value);" class="add">
+            <img src="../plus.svg"></a>
+            <%if(annotations){%>
+                <% annotations.forEach(annotation => {%>
+                        <form method="POST" action="/profileNotes/<%=username%>/save/<%=annotation.id%>" class="card">
+                            <input type="hidden" id="color" value="<%=annotation.importance%>">
+                            <textarea name="content"><%=annotation.content%></textarea>
+                            <select name="importance">
+                                <option value="#98eb34">Tranquilo</option>
+                                <option value="#ebe534">Importante</option>
+                                <option value="#eb8634">Muito Importante</option>
+                        
+                            </select>
+                            <button>Salvar</button>
+                            <a href="/profileNotes/<%=username%>/delete/<%=annotation.id%>">Excluir</a>
+                        </form>
+                <% })%>    
+            <%}%>  
          </div>
       </div>
+      <nav id="footer">The Kids 2020</nav>
+      <script src="../js/cardGenerator.js"></script>
+      <script src="../js/defineColors.js"></script>
+      
   </body> 
 </html>
