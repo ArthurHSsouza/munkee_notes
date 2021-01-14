@@ -6,11 +6,12 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "connect-flash": "^0.1.1",
+    "connect-redis": "^5.0.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "nodemailer": "^6.4.17",
-    "nodemon": "^2.0.6",
+    "redis": "^3.0.2",
     "sequelize": "^6.3.5",
     "slugify": "^1.4.6",
     "sqlite3": "^5.0.0"

@@ -15,18 +15,40 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 //Sessions
-const session = require('express-session')
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {  
-        maxAge: 60000 * 60 * 24 * 7
-    }
-}));
+const session = require('express-session');
+
+    //redis
+    const redis = require('redis');
+    const connectRedis = require('connect-redis');
+    const redisStore = connectRedis(session);
+    const redisClient = redis.createClient({host: 'localhost', port: 6379});
+
+    redisClient.on('error',(error)=>{
+        console.log("Could not stablish connection to redis"+error);
+    })
+    redisClient.on('connect', (err)=> {
+        console.log('Connected to redis successfully');
+    });
+
+    //session config
+
+    app.use(
+        session({
+        store: new redisStore({client: redisClient}),
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {  
+            maxAge: 60000 * 60 * 24
+        }
+    }));
+
+//flash init
+
 app.use(flash());
 
 // flash midleware
+
 app.use((req,res,next)=>{
     res.locals.error = req.flash("error");
     res.locals.success = req.flash("success"); 

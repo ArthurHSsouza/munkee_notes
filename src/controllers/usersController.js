@@ -10,7 +10,7 @@ module.exports = class User extends UserModel{
     if(!req.session.user){
         next();
     }else{
-      res.redirect(`/profileNotes/${slugify(req.session.user.name)}`);
+      res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
    }
 
  }
@@ -32,7 +32,7 @@ module.exports = class User extends UserModel{
     try{
       let {id, message} = await this.signupValidationModel(email,password,name); 
       this.createUserInSession(req, name, email, id);
-      res.redirect(`/profileNotes/${slugify(req.session.user.name)}`);
+      res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
     }catch(err){
       req.flash('error', err);
       res.redirect('/users/signup');
@@ -51,7 +51,7 @@ module.exports = class User extends UserModel{
 
         let {name, id, message} = await this.loginValidationModel(email, password);
         this.createUserInSession(req, name, email, id); 
-        res.redirect(`/profileNotes/${slugify(req.session.user.name)}`);
+        res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
 
       }catch(err){
         req.flash("error", err);
@@ -113,7 +113,7 @@ module.exports = class User extends UserModel{
         var {password, passwordRepeat, token, name, email, id} = req.body;
         await this.resetPasswordModel(password, passwordRepeat, token);
         this.createUserInSession(req, name, email, id);  
-        res.redirect(`/profileNotes/${slugify(req.session.user.name)}`);
+        res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
 
       }catch(err){
 

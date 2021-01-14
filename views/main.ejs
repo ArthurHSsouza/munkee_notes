@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styleMain.css">
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="../macaco.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/styleMain.css">
+    <link rel="shortcut icon" href="/macaco.svg" type="image/x-icon">
     <title>Munkee Notes</title>
  </head>
   <body>
       <div id="header">
           <div id="title">
-          <h1><img src="../monkey.svg" id="monkey" alt="">Munkee Notes</h1>
+          <h1><img src="/monkey.svg" id="monkey" alt="">Munkee Notes</h1>
           </div> 
           <button id="exit" ><a href="/users/logout" >Sair</a></button>
       </div> 
@@ -20,7 +20,7 @@
          <div id="noteList">
             <input type="hidden" id="username" value="<%=username%>">
             <a onclick="cardGenerator(document.querySelector('#username').value);" class="add">
-            <img src="../plus.svg"></a>
+            <img src="/plus.svg"></a>
             <%if(annotations){%>
                 <% annotations.forEach(annotation => {%>
                         <form method="POST" action="/profileNotes/<%=username%>/save/<%=annotation.id%>" class="card">
@@ -30,18 +30,41 @@
                                 <option value="#98eb34">Tranquilo</option>
                                 <option value="#ebe534">Importante</option>
                                 <option value="#eb8634">Muito Importante</option>
-                        
                             </select>
                             <button>Salvar</button>
                             <a href="/profileNotes/<%=username%>/delete/<%=annotation.id%>">Excluir</a>
                         </form>
-                <% })%>    
+                <% });%>    
             <%}%>  
          </div>
       </div>
-      <nav id="footer">The Kids 2020</nav>
-      <script src="../js/cardGenerator.js"></script>
-      <script src="../js/defineColors.js"></script>
+      <nav id="footer">
+         <div id="page">
+            <div id="numbers">
+                <%   
+                if(size>0){
+                    
+                    let count = 0;
+                    for(let i = page; i <= size; i++){ 
+                    count++;
+                    if(count > 5) break;
+                %> 
+                <% if(page != 1){ %>
+                    <a class="number" href="/profileNotes/<%=username%>/<%=i-1%>">...</a>
+                <% } %>
+              
+                <a class="number" href="/profileNotes/<%=username%>/<%=i%>">
+                    <%=i%>
+                </a>
+                <%}%>
+            <%}else{%>
+                <a class="number" href="/profileNotes/<%=username%>/1">1</a>
+            <%}%>
+            </div>
+         </div>
+      </nav>
+      <script src="/js/cardGenerator.js"></script>
+      <script src="/js/defineColors.js"></script>
       
   </body> 
 </html>

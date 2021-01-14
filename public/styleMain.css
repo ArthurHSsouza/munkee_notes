@@ -51,14 +51,40 @@ a{
 }
 
 #footer{
+    display: flex;
     margin-top: 20vh;
     width: 100%;
-    height: 1.5rem;
+    height: 20%;
     font-size: 1.2rem;
     font-family: "Comic Neue";
     color: white;
     padding: 1rem;
     background-color: rgb(236, 128, 88);
+}
+
+#page{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#numbers{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.number{
+    border-radius: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem;
+    height: 1.7rem;
+    width: 1.7rem;
+    background-color: #f84747;
+    text-decoration: none;
+    color: white;
 }
 
 #exit{
