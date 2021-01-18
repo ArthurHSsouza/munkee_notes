@@ -14,6 +14,14 @@
           <h1><img src="/monkey.svg" id="monkey" alt="">Munkee Notes</h1>
           </div> 
           <button id="exit" ><a href="/users/logout" >Sair</a></button>
+          <div id="profileImage">
+            <% if(image){%> 
+                <img src="data:image/<%=mimetype%>;base64,
+                <%=image.toString('base64')%>" alt="profile_photo">
+            <%}else{%>
+               <img src="/default.jpg" alt="default_photo"> 
+            <%}%>  
+          </div>
       </div> 
       <%- include ('partials/msg.ejs');%> 
        <div id="body"> 
@@ -24,6 +32,7 @@
             <%if(annotations){%>
                 <% annotations.forEach(annotation => {%>
                         <form method="POST" action="/profileNotes/<%=username%>/save/<%=annotation.id%>" class="card">
+                            <p><%=annotation.date%> </p>
                             <input type="hidden" id="color" value="<%=annotation.importance%>">
                             <textarea name="content"><%=annotation.content%></textarea>
                             <select name="importance">
@@ -42,7 +51,7 @@
          <div id="page">
             <div id="numbers">
                 <%   
-                if(size>0){
+                if(size > 0){
                     
                     let count = 0;
                     for(let i = page; i <= size; i++){ 
@@ -65,6 +74,5 @@
       </nav>
       <script src="/js/cardGenerator.js"></script>
       <script src="/js/defineColors.js"></script>
-      
   </body> 
 </html>

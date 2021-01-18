@@ -1,15 +1,18 @@
 const router = require("express").Router();
 const Users = require('../controllers/usersController');
+const uploadImage = require('../middlewares/multer');
+const middleware = require('../middlewares/users');
 const users = new Users();
 
-router.get('/signup', users.disableAuthRoutes, users.getSignup);
-router.post('/signup', users.disableAuthRoutes, users.signup);
-router.get('/login', users.disableAuthRoutes, users.getLogin);
-router.post('/login', users.disableAuthRoutes, users.login);
+router.get('/signup', middleware.disableAuthRoutes, users.getSignup);
+router.post('/signup', middleware.disableAuthRoutes, users.signup);
+router.get('/login', middleware.disableAuthRoutes, users.getLogin);
+router.post('/login', middleware.disableAuthRoutes, users.login);
 router.get('/logout', users.logout);
-router.get('/frgtPassword',users.disableAuthRoutes,users.getFrgtPassword);
-router.post('/frgtPassword', users.disableAuthRoutes, users.frgtPassword);
-router.post('/validateResetToken/:id',users.disableAuthRoutes, users.validateResetToken);
-router.post('/resetPassword',users.disableAuthRoutes, users.resetPassword);
+router.get('/frgtPassword',middleware.disableAuthRoutes, users.getFrgtPassword);
+router.post('/frgtPassword', middleware.disableAuthRoutes, users.frgtPassword);
+router.post('/validateResetToken/:id', middleware.disableAuthRoutes, users.validateResetToken);
+router.post('/resetPassword',middleware.disableAuthRoutes, users.resetPassword);
+router.post('/:username/uploadImage', middleware.blockPrivateRoutes, uploadImage.single("profileImage"), users.uploadImage);
 
 module.exports = router;

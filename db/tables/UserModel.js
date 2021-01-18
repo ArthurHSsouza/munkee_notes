@@ -22,7 +22,15 @@ const sequelize = require('../connection');
      passwordResetToken: {
          type: DataTypes.STRING,
          allowNull: true
-     }
+     },
+     image: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    mimetype: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
  });
  
   //User.sync({force: true});

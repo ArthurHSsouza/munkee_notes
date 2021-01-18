@@ -5,23 +5,14 @@ const slugify = require('slugify');
 
 module.exports = class User extends UserModel{ 
 
-  disableAuthRoutes = (req,res,next)=>{
-    
-    if(!req.session.user){
-        next();
-    }else{
-      res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
-   }
-
- }
-
+  
   createUserInSession = (req, name, email, id)=>{
       req.session.user = {
           name,
           email,
           id
       }
-   }
+  }
 
   getSignup = (req,res)=>{
     res.render('signup');
@@ -122,6 +113,22 @@ module.exports = class User extends UserModel{
 
       }
   }
+
+  uploadImage = async (req,res) => {
+    try{
+      await this.uploadImageModel(
+          req.session.user.photo, 
+          req.session.user.id,
+          req.session.user.mimetype
+        );
+      res.status(200);
+      res.sendFile(global.path+'/images/uploads/'+req.session.user.photo);
+    }catch(err){
+      console.log(err);
+      res.json({err: "Erro ao salvar imagem"});
+    }
+  }
+
 
   logout = (req,res)=>{ 
 

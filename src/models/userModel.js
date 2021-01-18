@@ -184,4 +184,22 @@ module.exports = class UserModel{
          err ? reject(err) : resolve();
       });
    }
+
+   uploadImageModel = async(imgName, id, mimetype) => {
+      
+      let error;
+      try{
+        await userDBModel.update(
+           {
+            image: global.path+'/images/uploads/'+imgName,
+            mimetype
+         },
+         {where:{id: id}});
+      }catch(err){
+         error = "Erro ao salvar imagem";
+      }
+      return new Promise((resolve, reject) => {
+            error ? reject(error) : resolve();
+      });
+   }
 }

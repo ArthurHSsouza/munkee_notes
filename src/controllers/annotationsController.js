@@ -1,26 +1,16 @@
 const AnnotationModel = require('../models/annotationModel');
-const annotationDBModel = require('../../db/tables/AnnotationModel');
 const slugify = require('slugify');
 
 module.exports = class Annotations extends AnnotationModel{
    
-   static blockPrivateRoutes = async (req,res,next)=>{
-        req.session.user ? next() : res.redirect('/');
-    }
-
     show = async (req,res)=>{
        
        let {page} = req.params; 
        let totalPages = 1;
-
+    
        try{
 
-            let annotations = await annotationDBModel.findAndCountAll({
-                limit: 11,
-                offset: page * 11 - 11,
-                where: {userId: req.session.user.id}
-            });
-
+            var {annotations, image, mimetype} = await this.showModel(req.session.user.id, page);
             if(annotations.count != 0){
                 if(annotations.count % 11 == 0){
                     totalPages = parseInt(annotations.count/11);
@@ -34,17 +24,29 @@ module.exports = class Annotations extends AnnotationModel{
                 res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
 
             }else{
+                
                 res.render('main',
                 {   
                     annotations: annotations.rows, 
                     username: slugify(req.session.user.name), 
                     page, 
-                    size: totalPages
+                    size: totalPages,
+                    image,
+                    mimetype
                 }); 
             }
-        }catch{
 
-            res.render('main',{username: slugify(req.session.user.name)});
+        }catch(err){
+            console.log(err);
+            res.render('main',
+            {
+                annotations: undefined, 
+                username: slugify(req.session.user.name),
+                page: 1,
+                size: totalPages,
+                image,
+                mimetype
+            });
         }
     }
 

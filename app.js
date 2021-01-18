@@ -1,14 +1,22 @@
 const express = require('express');
 const flash = require('connect-flash');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
 
+//cors
+app.use(cors());
+
 app.disable('x-powered-by');
+
+//define global path
+global.path = __dirname;
 
 //static-files
 
 app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname+'/images/default'));
 
 // body parse
 app.use(express.urlencoded({extended: false}));
@@ -26,7 +34,7 @@ const session = require('express-session');
     redisClient.on('error',(error)=>{
         console.log("Could not stablish connection to redis"+error);
     })
-    redisClient.on('connect', (err)=> {
+    redisClient.on('connect', ()=> {
         console.log('Connected to redis successfully');
     });
 
