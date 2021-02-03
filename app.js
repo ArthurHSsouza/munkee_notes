@@ -1,12 +1,8 @@
 const express = require('express');
 const flash = require('connect-flash');
-const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-
-//cors
-app.use(cors());
 
 app.disable('x-powered-by');
 

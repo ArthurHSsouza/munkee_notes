@@ -13,6 +13,7 @@ router.get('/frgtPassword',middleware.disableAuthRoutes, users.getFrgtPassword);
 router.post('/frgtPassword', middleware.disableAuthRoutes, users.frgtPassword);
 router.post('/validateResetToken/:id', middleware.disableAuthRoutes, users.validateResetToken);
 router.post('/resetPassword',middleware.disableAuthRoutes, users.resetPassword);
-router.post('/:username/uploadImage', middleware.blockPrivateRoutes, uploadImage.single("profileImage"), users.uploadImage);
+router.get('/uploadImage', middleware.blockPrivateRoutes, users.getUploadImage);
+router.post('/uploadImage', middleware.blockPrivateRoutes, uploadImage.single("profileImage"), users.uploadImage);
 
 module.exports = router;

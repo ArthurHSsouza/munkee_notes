@@ -84,7 +84,6 @@ module.exports = class Annotations extends AnnotationModel{
         }
           
     }
-    
 
     delete = async (req,res)=>{
         

@@ -3,6 +3,7 @@ const {transport} = require('../mailer');
 const {promisify} = require('util');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
+const {unlinkSync} = require('fs');
 
 module.exports = class UserModel{
 
@@ -168,7 +169,6 @@ module.exports = class UserModel{
                let salt = await this.genSalt(10);
                let encrypted = await this.hash(password, salt);
                let user = await userDBModel.update({password: encrypted}, {where: {passwordResetToken: token}});
-               console.log(user);
                
             }else{
                err = "Senha inválida";
@@ -187,19 +187,27 @@ module.exports = class UserModel{
 
    uploadImageModel = async(imgName, id, mimetype) => {
       
-      let error;
       try{
+
+      let {dataValues} = await userDBModel.findOne({
+            attributes: ["image"],
+            where: {id: id}
+        });
+        
+        if(dataValues.image)
+         try{unlinkSync(dataValues.image);}catch(err){}
+
         await userDBModel.update(
            {
             image: global.path+'/images/uploads/'+imgName,
             mimetype
          },
+
          {where:{id: id}});
+         return;
       }catch(err){
-         error = "Erro ao salvar imagem";
+          throw new Error(err);
       }
-      return new Promise((resolve, reject) => {
-            error ? reject(error) : resolve();
-      });
+
    }
 }

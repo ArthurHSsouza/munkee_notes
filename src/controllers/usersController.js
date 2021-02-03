@@ -109,26 +109,34 @@ module.exports = class User extends UserModel{
       }catch(err){
 
         req.flash("error", err);
-        res.redirect(`/users/resetPassword/${token}`);
+        res.redirect(`/users/frgtPassword`);
 
       }
   }
 
+  getUploadImage = (req, res) => {
+    res.render('profileImage');
+  }
+
   uploadImage = async (req,res) => {
+    
+    if(!req.file){
+       req.flash("error", "Arquivo inválido");
+       res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
+       return;
+    }
     try{
       await this.uploadImageModel(
           req.session.user.photo, 
           req.session.user.id,
           req.session.user.mimetype
         );
-      res.status(200);
-      res.sendFile(global.path+'/images/uploads/'+req.session.user.photo);
     }catch(err){
       console.log(err);
-      res.json({err: "Erro ao salvar imagem"});
     }
-  }
 
+    res.redirect(`/profileNotes/${slugify(req.session.user.name)}/1`);
+  }
 
   logout = (req,res)=>{ 
 
@@ -136,5 +144,4 @@ module.exports = class User extends UserModel{
       res.redirect('/');
 
   }
-
 }

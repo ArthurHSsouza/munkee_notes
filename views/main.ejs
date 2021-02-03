@@ -15,20 +15,22 @@
           </div> 
           <button id="exit" ><a href="/users/logout" >Sair</a></button>
           <div id="profileImage">
+            <a href="/users/uploadImage">
             <% if(image){%> 
                 <img src="data:image/<%=mimetype%>;base64,
                 <%=image.toString('base64')%>" alt="profile_photo">
             <%}else{%>
                <img src="/default.jpg" alt="default_photo"> 
-            <%}%>  
+            <%}%>
+            </a>  
           </div>
       </div> 
-      <%- include ('partials/msg.ejs');%> 
        <div id="body"> 
          <div id="noteList">
             <input type="hidden" id="username" value="<%=username%>">
-            <a onclick="cardGenerator(document.querySelector('#username').value);" class="add">
-            <img src="/plus.svg"></a>
+            <a onclick="newCardBlock(document.querySelectorAll('.notSaved'));" class="add">
+              <img src="/plus.svg">
+            </a>
             <%if(annotations){%>
                 <% annotations.forEach(annotation => {%>
                         <form method="POST" action="/profileNotes/<%=username%>/save/<%=annotation.id%>" class="card">
@@ -47,6 +49,7 @@
             <%}%>  
          </div>
       </div>
+      <%- include ('partials/msg.ejs');%> 
       <nav id="footer">
          <div id="page">
             <div id="numbers">
@@ -73,6 +76,7 @@
          </div>
       </nav>
       <script src="/js/cardGenerator.js"></script>
+      <script src="/js/newCardBlock.js"></script>
       <script src="/js/defineColors.js"></script>
   </body> 
 </html>

@@ -32,7 +32,6 @@ const sequelize = require('../connection');
         allowNull: true
     }
  });
- 
-  //User.sync({force: true});
 
-  module.exports = User;
+//User.sync({force: true});
+module.exports = User;

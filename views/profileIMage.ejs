@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styleLogin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../macaco.svg" type="image/x-icon">
+    <title>Munkee Notes</title>
+</head>
+
+<body>
+    <%- include ('partials/msg.ejs');%> 
+    <h1 id="subtitle">Insira a foto de perfil</h1>
+    <form action="/users/uploadImage" id="form" enctype="multipart/form-data" method="POST">
+      <input class="input" type="file" name="profileImage" placeholder="Escolha o arquivo"><br>
+      <button class="btn">Enviar</button>
+    </form> 
+    <img src="../macaco.svg" alt="munkee"> 
+</body>
+
+</html>
