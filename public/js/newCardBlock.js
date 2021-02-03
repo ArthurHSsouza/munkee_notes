@@ -4,7 +4,7 @@ let newCardBlock = (cards) => {
     if(cards.length >= 1){
 
       let card = document.querySelector(".add");
-      card.style.opacity = "60%";
+      //card.style.opacity = "60%";
 
       let alert = document.createElement("nav");
       alert.setAttribute("class","nav-class");
